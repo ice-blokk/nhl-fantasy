@@ -8,7 +8,7 @@ function Draft() {
   const [addedIds, setAddedIds] = useState([])
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/nhl/roster/TOR')
+    axios.get('/api/nhl/roster/TOR')
       .then(res => {
         const allPlayers = [
           ...res.data.forwards,
@@ -25,7 +25,7 @@ function Draft() {
   }, [])
 
   const handleAdd = (player) => {
-    axios.post('http://localhost:5000/api/nhl/roster/add', {
+    axios.post('/api/nhl/roster/add', {
       nhlId: player.id,
       firstName: player.firstName.default,
       lastName: player.lastName.default,

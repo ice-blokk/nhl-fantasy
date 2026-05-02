@@ -20,7 +20,7 @@ function Roster() {
   }, [])
 
   const fetchRoster = () => {
-    axios.get('http://localhost:5000/api/nhl/players')
+    axios.get('/api/nhl/players')
       .then(res => {
         setPlayers(res.data)
         setLoading(false)
@@ -32,14 +32,14 @@ function Roster() {
   }
 
   const handleSort = () => {
-    axios.get(`http://localhost:5000/api/nhl/players/sorted/${sortField}/${sortOrder}`)
+    axios.get(`/api/nhl/players/sorted/${sortField}/${sortOrder}`)
       .then(res => setPlayers(res.data))
       .catch(err => console.error('Failed to sort players', err))
   }
 
   const handleFilter = () => {
     if (!filterField || !filterValue) return
-    axios.get(`http://localhost:5000/api/nhl/players/filtered/${filterField}/${filterValue}`)
+    axios.get(`/api/nhl/players/filtered/${filterField}/${filterValue}`)
       .then(res => setPlayers(res.data))
       .catch(err => console.error('Failed to filter players', err))
   }
@@ -53,7 +53,7 @@ function Roster() {
   }
 
   const handleDelete = (nhlId) => {
-    axios.post('http://localhost:5000/api/nhl/roster/remove', { nhlId })
+    axios.post('/api/nhl/roster/remove', { nhlId })
       .then(() => {
         setPlayers(prev => prev.filter(p => p.nhlId !== nhlId))
       })
@@ -72,7 +72,7 @@ function Roster() {
   }
 
   const handleEditSubmit = () => {
-    axios.patch(`http://localhost:5000/api/nhl/players/edit/${editPlayer.nhlId}`, editForm)
+    axios.patch(`/api/nhl/players/edit/${editPlayer.nhlId}`, editForm)
       .then(res => {
         setPlayers(prev => prev.map(p => p.nhlId === editPlayer.nhlId ? res.data : p))
         setEditPlayer(null)
